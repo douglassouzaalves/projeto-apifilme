@@ -1,4 +1,4 @@
-package br.com.projetox.model;
+package br.com.projetox.v2.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

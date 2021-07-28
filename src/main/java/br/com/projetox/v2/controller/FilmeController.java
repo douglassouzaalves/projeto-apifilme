@@ -1,9 +1,9 @@
-package br.com.projetox.controller;
+package br.com.projetox.v2.controller;
 //ele que disponibiliza seus serviços por meio de uma api REST
 
-import br.com.projetox.model.Filme;
-import br.com.projetox.service.FilmeService;
-import br.com.projetox.util.DateUtil;
+import br.com.projetox.v2.model.Filme;
+import br.com.projetox.v2.service.FilmeService;
+import br.com.projetox.v2.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -17,11 +17,12 @@ import java.util.List;
 @Log4j2
 @AllArgsConstructor
 @RestController //Controlador que será acessado atráves de uma api rest
-@RequestMapping("filmes") //informando qual caminho principal da nossa api
+@RequestMapping("v2/filmes") //informando qual caminho principal da nossa api
 public class FilmeController {
     DateUtil dateUtil;
     FilmeService filmeService;
 
+    //Endpoints
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Filme save(@RequestBody @Valid Filme filme) { //RequestBody, usando pra informar que está vindo de uma requisição
@@ -44,6 +45,12 @@ public class FilmeController {
     public List<Filme> select() {
             log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())); //gerando log
             return filmeService.select();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "/{filmeid}") //padrão da url
+    public Filme findById(@PathVariable Long filmeid) {
+        return filmeService.findById(filmeid);
     }
 
 }

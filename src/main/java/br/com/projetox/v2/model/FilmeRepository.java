@@ -1,7 +1,8 @@
-package br.com.projetox.model;
+package br.com.projetox.v2.model;
 
 import org.apache.ibatis.annotations.*;
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface FilmeRepository {
@@ -18,8 +19,8 @@ public interface FilmeRepository {
     @Select("SELECT * FROM filmes")
     List<Filme> select();
 
-    //@Select("SELECT * FROM filmes WHERE filmeid=#{filmeid}")
-
+    @Select("SELECT * FROM filmes WHERE filmeid=#{filmeid}")
+    Optional<Filme> findById(Long filmeid);
 
     @Delete("DELETE FROM filmes WHERE filmeid=#{filmeid}")
     int delete(Long filmeId);

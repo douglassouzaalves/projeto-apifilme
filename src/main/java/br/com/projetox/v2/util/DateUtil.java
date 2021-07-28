@@ -1,4 +1,4 @@
-package br.com.projetox.util;
+package br.com.projetox.v2.util;
 
 import org.springframework.stereotype.Service;
 

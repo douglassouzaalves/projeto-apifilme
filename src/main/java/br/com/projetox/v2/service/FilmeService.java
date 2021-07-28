@@ -1,7 +1,8 @@
-package br.com.projetox.service;
+package br.com.projetox.v2.service;
 
-import br.com.projetox.model.Filme;
-import br.com.projetox.model.FilmeRepository;
+import br.com.projetox.v2.error.ResourceNotFoundException;
+import br.com.projetox.v2.model.Filme;
+import br.com.projetox.v2.model.FilmeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,9 @@ public class FilmeService {
     //utilizando pra injetar a dependência
     FilmeRepository filmeRepository;
 
+    public Filme findById(Long filmeid) {
+        return filmeRepository.findById(filmeid).orElseThrow(() -> new ResourceNotFoundException("Not Found"));
+    }
 
     public Filme save(Filme filme) {
         this.filmeRepository.insert(filme);
