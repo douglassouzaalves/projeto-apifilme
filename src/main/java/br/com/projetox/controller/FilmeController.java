@@ -3,65 +3,47 @@ package br.com.projetox.controller;
 
 import br.com.projetox.model.Filme;
 import br.com.projetox.service.FilmeService;
+import br.com.projetox.util.DateUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
+@Log4j2
 @AllArgsConstructor
-@RestController //anotação que add o @Controller e @ResponseBody
-@RequestMapping("filmes") //utilizando para implementar a url
+@RestController //Controlador que será acessado atráves de uma api rest
+@RequestMapping("filmes") //informando qual caminho principal da nossa api
 public class FilmeController {
-
+    DateUtil dateUtil;
     FilmeService filmeService;
 
-    @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE) //ResponseEntity representando a resposta http
-    public ResponseEntity<?> save(@RequestBody @Valid Filme filme) {
-        try {
-            filmeService.save(filme);           //passando status e corpo da resposta
-            return ResponseEntity.status(HttpStatus.CREATED).body(filme); //compoem a resposta http
-            //não utilizar responseEntity
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar");
-        }
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Filme save(@RequestBody @Valid Filme filme) { //RequestBody, usando pra informar que está vindo de uma requisição
+        return filmeService.save(filme);
     }
-
+    @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(@RequestBody Filme filme) {
-        try {
+    public void update(@RequestBody Filme filme) {
             filmeService.update(filme);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(filme);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao atualizar");
-        }
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(path = "/{filmeId}") //utilizando devido ao valor ser passado diretamente na url
-    public ResponseEntity<?> delete(@PathVariable("filmeId") Long filmeId) {
-        try {
+    public void delete(@PathVariable("filmeId") Long filmeId) {
             filmeService.delete(filmeId);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar");
-        }
+    }
+    //Toda requisição de página acessamos atŕaves da operação get
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "/")
+    public List<Filme> select() {
+            log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now())); //gerando log
+            return filmeService.select();
     }
 
-    @GetMapping(path = "/")
-    public ResponseEntity<?> select() {
-        try {
-            List<Filme> filmes = filmeService.select();
-            return ResponseEntity.status(HttpStatus.OK).body(filmes);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao selecionar");
-        }
-    }
 }

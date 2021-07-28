@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 @Mapper
-public interface FilmeMapper {
+public interface FilmeRepository {
 
     @Insert("INSERT INTO filmes(titulo, oscar, produtor, estreia, produtora) "
             + "VALUES (#{titulo},#{oscar},#{produtor},#{estreia},#{produtora})")
@@ -15,9 +15,12 @@ public interface FilmeMapper {
             + "produtor=#{produtor}, estreia=#{estreia}, produtora=#{produtora} WHERE filmeid=#{filmeid}")
     int update(Filme filme);
 
-    @Select("SELECT filmeid AS filmeid,titulo, oscar, produtor, estreia, produtora FROM filmes")
+    @Select("SELECT * FROM filmes")
     List<Filme> select();
 
-    @Delete("DELETE FROM filmes WHERE filmeidd=#{filmeid}")
+    //@Select("SELECT * FROM filmes WHERE filmeid=#{filmeid}")
+
+
+    @Delete("DELETE FROM filmes WHERE filmeid=#{filmeid}")
     int delete(Long filmeId);
 }

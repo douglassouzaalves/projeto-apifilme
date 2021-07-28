@@ -1,9 +1,8 @@
 package br.com.projetox.service;
 
 import br.com.projetox.model.Filme;
-import br.com.projetox.model.FilmeMapper;
+import br.com.projetox.model.FilmeRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,26 +12,27 @@ import java.util.List;
 public class FilmeService {
 
     //utilizando pra injetar a dependência
-    FilmeMapper mapper;
+    FilmeRepository filmeRepository;
 
 
-    public void save(Filme filme) {
-        this.mapper.insert(filme);
+    public Filme save(Filme filme) {
+        this.filmeRepository.insert(filme);
+        return filme;
     }
 
 
     public void update(Filme filme) {
-        this.mapper.update(filme);
+        this.filmeRepository.update(filme);
     }
 
 
     public void delete(Long filmeId) {
-        this.mapper.delete(filmeId);
+        this.filmeRepository.delete(filmeId);
     }
 
 
     public List<Filme> select() {
-        List<Filme> filmes = this.mapper.select();
+        List<Filme> filmes = this.filmeRepository.select();
         return filmes;
     }
 }
