@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Date;
 
-@ControllerAdvice
+@ControllerAdvice //informando ao controller que é uma classe que tem informações que devem ser utilizadas
 public class RestExceptionHandler extends Throwable {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rfnException) {
@@ -17,7 +17,7 @@ public class RestExceptionHandler extends Throwable {
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.NOT_FOUND.value())
                 .title("Resource not found")
-                .detail(rfnException.getMessage())
+                .details(rfnException.getMessage())
                 .developerMessage(rfnException.getClass().getName())
                 .build();
         return new ResponseEntity<>(rnfDetais, HttpStatus.NOT_FOUND);
@@ -28,23 +28,12 @@ public class RestExceptionHandler extends Throwable {
         var rnfDetais = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.BAD_REQUEST.value())
-                .title("just enter numbers\n")
-                .detail(numberFormatException.getMessage())
+                .title("Error...")
+                .details(numberFormatException.getMessage())
                 .developerMessage(numberFormatException.getClass().getName())
                 .build();
         return new ResponseEntity<>(rnfDetais, HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<?> handleResourceNotFoundException(RuntimeException runtimeException) {
-//        var rnfDetais = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
-//                .timestamp(new Date().getTime())
-//                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-//                .title("Resource not found")
-//                .detail(runtimeException.getMessage())
-//                .developerMessage(runtimeException.getClass().getName())
-//                .build();
-//        return new ResponseEntity<>(rnfDetais, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
 }
 

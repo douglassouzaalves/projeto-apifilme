@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class Filme {
 
-    //@NotNull(message = "Campo não pode receber nulo")
     private Long filmeid;
     private String titulo;
     private String oscar;

@@ -4,9 +4,10 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 import java.util.Optional;
 
-@Mapper
+@Mapper //ele facilita a comunicação com os meus comandos BD
 public interface FilmeRepository {
 
+    //anotações que definem as operações
     @Insert("INSERT INTO filmes(titulo, oscar, produtor, estreia, produtora) "
             + "VALUES (#{titulo},#{oscar},#{produtor},#{estreia},#{produtora})")
     @Options(keyColumn = "filmeid", keyProperty = "filmeid", useGeneratedKeys = true)

@@ -1,39 +1,22 @@
 package br.com.projetox.v2.error;
 
+import lombok.Data;
+
+@Data
 public class ResourceNotFoundDetails {
     private String title;
     private int status;
-    private String detail;
+    private String details;
     private long timestamp;
     private String developerMessage;
 
     public ResourceNotFoundDetails() {
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public String getDeveloperMessage() {
-        return developerMessage;
-    }
-
     public static final class ResourceNotFoundDetailsBuilder {
         private String title;
         private int status;
-        private String detail;
+        private String details;
         private long timestamp;
         private String developerMessage;
 
@@ -54,8 +37,8 @@ public class ResourceNotFoundDetails {
             return this;
         }
 
-        public ResourceNotFoundDetailsBuilder detail(String detail) {
-            this.detail = detail;
+        public ResourceNotFoundDetailsBuilder details(String detail) {
+            this.details = detail;
             return this;
         }
 
@@ -72,7 +55,7 @@ public class ResourceNotFoundDetails {
         public ResourceNotFoundDetails build() {
             ResourceNotFoundDetails resourceNotFoundDetails = new ResourceNotFoundDetails();
             resourceNotFoundDetails.timestamp = this.timestamp;
-            resourceNotFoundDetails.detail = this.detail;
+            resourceNotFoundDetails.details = this.details;
             resourceNotFoundDetails.title = this.title;
             resourceNotFoundDetails.developerMessage = this.developerMessage;
             resourceNotFoundDetails.status = this.status;
