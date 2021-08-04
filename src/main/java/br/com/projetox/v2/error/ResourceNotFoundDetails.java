@@ -1,17 +1,19 @@
 package br.com.projetox.v2.error;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResourceNotFoundDetails {
     private String title;
     private int status;
     private String details;
     private long timestamp;
     private String developerMessage;
-
-    public ResourceNotFoundDetails() {
-    }
+  
 
     public static final class ResourceNotFoundDetailsBuilder {
         private String title;
@@ -19,9 +21,6 @@ public class ResourceNotFoundDetails {
         private String details;
         private long timestamp;
         private String developerMessage;
-
-        private ResourceNotFoundDetailsBuilder() {
-        }
 
         public static ResourceNotFoundDetailsBuilder newBuilder() {
             return new ResourceNotFoundDetailsBuilder();

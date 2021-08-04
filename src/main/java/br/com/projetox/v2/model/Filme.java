@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 
 @Builder
 @Data
@@ -19,5 +18,6 @@ public class Filme {
     private String produtor;
     private Integer estreia;
     private String produtora;
+
 
 }

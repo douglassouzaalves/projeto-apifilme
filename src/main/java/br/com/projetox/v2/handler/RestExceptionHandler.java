@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.Date;
 
-@ControllerAdvice //informando ao controller que é uma classe que tem informações que devem ser utilizadas
+@ControllerAdvice //informando ao controller que é uma classe que possui informações que devem ser utilizadas
 public class RestExceptionHandler extends Throwable {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rfnException) {
-        var rnfDetais = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
+        ResourceNotFoundDetails rnfDetais;
+        rnfDetais = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.NOT_FOUND.value())
                 .title("Resource not found")
@@ -25,7 +26,8 @@ public class RestExceptionHandler extends Throwable {
 
     @ExceptionHandler(NumberFormatException.class)
     public ResponseEntity<?> handleResourceBadRequest(NumberFormatException numberFormatException) {
-        var rnfDetais = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
+        ResourceNotFoundDetails rnfDetais;
+        rnfDetais = ResourceNotFoundDetails.ResourceNotFoundDetailsBuilder.newBuilder()
                 .timestamp(new Date().getTime())
                 .status(HttpStatus.BAD_REQUEST.value())
                 .title("Error...")
@@ -34,6 +36,7 @@ public class RestExceptionHandler extends Throwable {
                 .build();
         return new ResponseEntity<>(rnfDetais, HttpStatus.BAD_REQUEST);
     }
+
 
 }
 

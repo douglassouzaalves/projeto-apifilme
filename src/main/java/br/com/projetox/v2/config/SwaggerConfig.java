@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -34,7 +33,7 @@ public class SwaggerConfig {
                 "API REST",
                 "API REST de cadastro de filmes.",
                 "2.0",
-                "...",
+                "Contrato Teste...",
                 new Contact("Teste", "https://teste.com",
                         "teste@teste.com"),
                 "Versão 2.0",

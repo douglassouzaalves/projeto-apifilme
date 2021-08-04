@@ -24,5 +24,5 @@ public interface FilmeRepository {
     Optional<Filme> findById(Long filmeid);
 
     @Delete("DELETE FROM filmes WHERE filmeid=#{filmeid}")
-    int delete(Long filmeId);
+    int delete(Long filmeid);
 }
